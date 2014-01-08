@@ -1,0 +1,22 @@
+{
+    "name": "omnilight/yii2-sms",
+    "description": "Sms sending extension",
+    "keywords": ["yii", "sms"],
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Pavel Agalecky",
+            "email": "pavel.agalecky@gmail.com"
+        }
+    ],
+    "type": "yii2-extension",
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "dev-master",
+        "guzzle/guzzle": "~3.7"
+    },
+    "autoload": {
+        "psr-0": { "omnilight\\sms\\": "" }
+    },
+    "target-dir": "omnilight\\sms"
+}
