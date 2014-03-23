@@ -12,7 +12,7 @@ class Sms extends Component
 {
 	/**
 	 * List of SMS services
-	 * @var SmsService[]
+	 * @var SmsServiceInterface[]
 	 */
 	public $services = [];
 

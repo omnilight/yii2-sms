@@ -2,7 +2,7 @@
 
 namespace omnilight\sms\services;
 use Guzzle\Http\Client;
-use omnilight\sms\SmsService;
+use omnilight\sms\SmsServiceInterface;
 use yii\base\Component;
 
 
@@ -10,7 +10,7 @@ use yii\base\Component;
  * Class SmsOnline
  * @package \omnilight\sms\services
  */
-class SmsOnline extends Component implements SmsService
+class SmsOnline extends Component implements SmsServiceInterface
 {
 	const SMS_ONLINE_URL = 'http://sms.smsonline.ru/mt.cgi';
 

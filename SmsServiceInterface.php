@@ -8,8 +8,11 @@
 
 namespace omnilight\sms;
 
-
-interface SmsService
+/**
+ * Interface SmsServiceInterface
+ * @package omnilight\sms
+ */
+interface SmsServiceInterface
 {
 	/**
 	 * @param string $phone
