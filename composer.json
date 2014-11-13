@@ -17,6 +17,5 @@
     },
     "autoload": {
         "psr-4": { "omnilight\\sms\\": "" }
-    },
-    "target-dir": "omnilight//sms"
+    }
 }
