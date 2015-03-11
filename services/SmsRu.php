@@ -49,7 +49,7 @@ class SmsRu extends Component implements SmsServiceInterface
             throw $e;
         }
 
-        if ($response->getBody() === '100')
+        if (strpos((string)$response->getBody(), '100') === 0)
             return true;
         else {
             \Yii::error(strtr('SMS.RU returned error: {error}', [
