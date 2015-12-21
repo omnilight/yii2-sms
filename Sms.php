@@ -25,8 +25,14 @@ class Sms extends Component
 	 */
 	public function send($phone, $message, $from = null, $service = null)
 	{
-		if ($service === null)
+		if (count($this->services) == 0) {
+			\Yii::error('No sms servers configured');
+			return false;
+		}
+
+		if ($service === null) {
 			$service = array_keys($this->services)[0];
+		}
 
 		if (!is_object($this->services[$service]))
 			$this->services[$service] = \Yii::createObject($this->services[$service]);
