@@ -1,6 +1,7 @@
 <?php
 
 namespace omnilight\sms\services;
+
 use omnilight\sms\SmsServiceInterface;
 use yii\base\Component;
 
@@ -20,6 +21,7 @@ class Mail extends Component implements SmsServiceInterface
      */
     public $from;
     public $subject = 'New SMS';
+
     /**
      * @param string $phone
      * @param string $message
@@ -29,7 +31,7 @@ class Mail extends Component implements SmsServiceInterface
     public function send($phone, $message, $from)
     {
         \Yii::$app->mail->compose([
-            'html' => strtr("==== SMS [{from}] ====\nTo: {phone}\n\n{message}",[
+            'html' => strtr("==== SMS [{from}] ====\nTo: {phone}\n\n{message}", [
                 '{from}' => $from,
                 '{phone}' => $phone,
                 '{message}' => $message,

@@ -1,21 +1,32 @@
 <?php
 
 namespace omnilight\sms\services;
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\TransferException;
-use yii\base\Component;
 use omnilight\sms\SmsServiceInterface;
+use yii\base\Component;
 
 
 /**
- * Class SmsRu implements interface for sending SMS via sms.ru
+ * Class SmsOnlineBulk
  */
-class SmsRu extends Component implements SmsServiceInterface
+class SmsOnlineBulk extends Component implements SmsServiceInterface
 {
-    const SMS_RU_URL = 'http://sms.ru/sms/send';
-
-    public $apiId;
+    const SMS_ONLINE_URL = 'https://bulk.sms-online.com/';
+    /**
+     * @var string
+     */
+    public $login;
+    /**
+     * @var string
+     */
+    public $secretKey;
+    /**
+     * @var string
+     */
     public $from;
+
     /**
      * @param string $phone
      * @param string $message
@@ -28,31 +39,39 @@ class SmsRu extends Component implements SmsServiceInterface
             $from = $this->from;
 
         $params = array(
-            'api_id' => $this->apiId,
-            'text' => $message,
-            'to' => $phone,
+            'user' => $this->login,
+            'phone' => $phone,
+            'txt' => nl2br($message),
         );
 
         if ($from !== null)
             $params['from'] = $from;
 
+        $params['sign'] = md5(
+            $params['user'] .
+            $params['from'] .
+            $params['phone'] .
+            $params['txt'] .
+            $this->secretKey
+        );
+
         $client = new Client();
         try {
-            $response = $client->get(self::SMS_RU_URL, [
+            $response = $client->get(self::SMS_ONLINE_URL, [
                 'query' => $params
             ]);
         } catch (TransferException $e) {
-            \Yii::error(strtr('SMS sending to SMS.RU results in system error: {error}', [
+            \Yii::error(strtr('SMS sending to SMS online Bulk API results in system error: {error}', [
                 '{error}' => $e->getMessage()
             ]), self::className());
 
             throw $e;
         }
 
-        if (strpos((string)$response->getBody(), '100') === 0)
+        if (preg_match('#<code>0</code>#', $response->getBody()))
             return true;
         else {
-            \Yii::error(strtr('SMS.RU returned error: {error}', [
+            \Yii::error(strtr('SMS online returned error: {error}', [
                 '{error}' => $response->getBody(),
             ]), self::className());
             return false;
