@@ -14,11 +14,11 @@ namespace omnilight\sms;
  */
 interface SmsServiceInterface
 {
-	/**
-	 * @param string $phone
-	 * @param string $message
-	 * @param string $from
-	 * @return bool
-	 */
-	public function send($phone, $message, $from);
+    /**
+     * @param mixed $phone
+     * @param string $message
+     * @param string $from
+     * @return bool
+     */
+    public function send($phone, $message, $from);
 } 

@@ -1,6 +1,7 @@
 <?php
 
 namespace omnilight\sms\services;
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\TransferException;
 use omnilight\sms\SmsServiceInterface;
